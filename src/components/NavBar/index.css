@@ -1,0 +1,27 @@
+/* Write your code here. */
+.nav-bg {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 40px 10px 40px;
+  background-color: #ffffff33;
+}
+.nav-logo {
+  display: flex;
+  flex-direction: row;
+}
+.nav-score {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-right: 40px;
+}
+.nav-img {
+  width: 56px;
+  height: 56px;
+}
+.nav-head {
+  font-size: 32px;
+  color: white;
+  margin: 5px;
+}
