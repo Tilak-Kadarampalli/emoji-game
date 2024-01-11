@@ -19,14 +19,34 @@ import EmojiCard from '../EmojiCard'
 class EmojiGame extends Component {
   state = {clickedEmojis: [], score: 0, topScore: 0}
 
+  shuffledEmojisList = () => {
+    const {emojisList} = this.props
+    return emojisList.sort(() => Math.random() - 0.5)
+  }
+
+  clickedEmoji = id => {
+    const {clickedEmojis} = this.state
+    this.setState(prevState => ({
+      clickedEmojis: [...prevState.clickedEmojis, id],
+      score: clickedEmojis.length + 1,
+    }))
+  }
+
   render() {
     const {emojisList} = this.props
+    const shuffledList = this.shuffledEmojisList()
+    const {clickedEmojis, score} = this.state
+
     return (
       <div className="main-bg">
-        <NavBar />
+        <NavBar score={score} />
         <div className="emojis-div">
-          {emojisList.map(eachEmoji => (
-            <EmojiCard emojiDetails={eachEmoji} key={eachEmoji.id} />
+          {shuffledList.map(eachEmoji => (
+            <EmojiCard
+              emojiDetails={eachEmoji}
+              clickedEmoji={this.clickedEmoji}
+              key={eachEmoji.id}
+            />
           ))}
         </div>
       </div>

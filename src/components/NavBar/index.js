@@ -2,7 +2,7 @@
 import './index.css'
 
 const Navbar = props => {
-  const {name} = props
+  const {score} = props
   return (
     <div className="nav-bg">
       <div className="nav-logo">
@@ -14,7 +14,7 @@ const Navbar = props => {
         <h1 className="nav-head">Emoji Game</h1>
       </div>
       <div className="nav-score">
-        <p> Score: 0 </p>
+        <p> Score: {score} </p>
         <p> Top Score: 5 </p>
       </div>
     </div>
