@@ -15,9 +15,10 @@ import {Component} from 'react'
 import './index.css'
 import NavBar from '../NavBar'
 import EmojiCard from '../EmojiCard'
+import WinOrLoseCard from '../WinOrLoseCard'
 
 class EmojiGame extends Component {
-  state = {clickedEmojis: [], score: 0, topScore: 0}
+  state = {clickedEmojis: [], score: 0, topScore: 0, resultCard: false}
 
   shuffledEmojisList = () => {
     const {emojisList} = this.props
@@ -26,21 +27,23 @@ class EmojiGame extends Component {
 
   clickedEmoji = id => {
     const {clickedEmojis} = this.state
-    this.setState(prevState => ({
-      clickedEmojis: [...prevState.clickedEmojis, id],
-      score: clickedEmojis.length + 1,
-    }))
+
+    if (clickedEmojis.includes(id) || clickedEmojis.length === 12) {
+      this.setState({resultCard: true})
+    } else {
+      this.setState(prevState => ({
+        clickedEmojis: [...prevState.clickedEmojis, id],
+      }))
+    }
   }
 
-  render() {
-    const {emojisList} = this.props
-    const shuffledList = this.shuffledEmojisList()
-    const {clickedEmojis, score} = this.state
+  gameRendering = () => {
+    const {resultCard, clickedEmojis} = this.state
 
-    return (
-      <div className="main-bg">
-        <NavBar score={score} />
-        <div className="emojis-div">
+    if (resultCard === false) {
+      const shuffledList = this.shuffledEmojisList()
+      return (
+        <ul className="emojis-div">
           {shuffledList.map(eachEmoji => (
             <EmojiCard
               emojiDetails={eachEmoji}
@@ -48,7 +51,35 @@ class EmojiGame extends Component {
               key={eachEmoji.id}
             />
           ))}
-        </div>
+        </ul>
+      )
+    }
+    return (
+      <WinOrLoseCard
+        score={clickedEmojis.length}
+        restartGame={this.restartGame}
+      />
+    )
+  }
+
+  restartGame = score => {
+    const {topScore} = this.state
+    if (score > topScore) {
+      this.setState({topScore: score})
+    }
+
+    this.setState({clickedEmojis: [], resultCard: false})
+  }
+
+  render() {
+    const {emojisList} = this.props
+
+    const {clickedEmojis, topScore, resultCard} = this.state
+
+    return (
+      <div className="main-bg">
+        <NavBar score={clickedEmojis.length} topScore={topScore} />
+        <div className="main-cont">{this.gameRendering()}</div>
       </div>
     )
   }

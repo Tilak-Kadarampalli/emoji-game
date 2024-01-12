@@ -1,1 +1,18 @@
 /* Write your code here. */
+.score-card {
+  display: flex;
+  flex-direction: row;
+  background-color: #ffffff33;
+}
+.score-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.play-again-btn {
+  background-color: #ffce27;
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+}

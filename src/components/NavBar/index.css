@@ -15,6 +15,7 @@
   flex-direction: row;
   color: white;
   margin-right: 40px;
+  justify-content: space-between;
 }
 .nav-img {
   width: 56px;
